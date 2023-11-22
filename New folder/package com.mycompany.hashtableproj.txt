@@ -1,0 +1,63 @@
+package com.mycompany.hashtableproject;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class HashTableProject {
+    // Define a function to compute the hash key for a word
+    public static int computeHashKey(String word) {
+        Map<Character, Integer> alphabetValues = new HashMap<Character, Integer>();
+        for (int i = 0; i < 26; i++) {
+            alphabetValues.put((char) ('a' + i), i);
+            alphabetValues.put((char) ('A' + i), i + 26);
+        }
+        int wordValue = 0;
+        for (char c : word.toCharArray()) {
+            if (alphabetValues.containsKey(c)) {
+                wordValue += alphabetValues.get(c);
+            }
+        }
+        return wordValue;
+    }
+
+    public static void main(String[] args) {
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.print("Enter your registration number: ");
+        String regNum = inputScanner.nextLine();
+        String inputFile = "file" + regNum.charAt(0) + ".txt";
+        String outputFile = "wordsHK" + regNum.charAt(0) + ".txt";
+        inputScanner.close();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            FileWriter writer = new FileWriter(outputFile);
+            Map<String, Integer> uniqueWords = new HashMap<String, Integer>();
+            String line;
+
+ int index = 0;
+            while ((line = reader.readLine()) != null) {
+                String[] words = line.split("\\s+");
+                for (String word : words) {
+                    // Ignore special characters and digits
+                    if (!word.matches("[a-zA-Z]+")) {
+                        continue;
+                    }
+                    // Compute the hash key for the word
+                    int hashKey = computeHashKey(word);
+                    // Add the word to the dictionary if it's not already there
+                    if (!uniqueWords.containsValue(hashKey)) {
+                        uniqueWords.put(word, hashKey);
+                        writer.write(index + "\t" + word + "\t" + hashKey + "\n");
+                        index++;
+                    }
+                }
+            }
+            reader.close();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

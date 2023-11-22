@@ -1,0 +1,70 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package mini_project;
+
+import java.io.File;
+import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+
+/**
+ *
+ * @author Mujahith
+ */
+public class Mini_Project {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        String inputFileName = "C:\\Users\\Dell\\Desktop\\file2.txt";
+        String outputFileName = "C:\\Users\\Dell\\Desktop\\wordsHK2.txt";
+        HashMap<String, Integer> wordHashes = new HashMap<String, Integer>();
+        
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(inputFileName));
+            FileWriter writer = new FileWriter(outputFileName);
+            String line = reader.readLine();
+            
+            while (line != null) {
+                String[] words = line.split("\\s+");
+                
+                for (String word : words) {
+                    word = word.replaceAll("[^a-zA-Z]", "");
+                    
+                    if (!word.isEmpty()) {
+                        int hashKey = 0;
+                        for (int i = 0; i < word.length(); i++) {
+                            char c = word.charAt(i);
+                            if (c >= 'a' && c <= 'z') {
+                                hashKey += c - 'a';
+                            } else if (c >= 'A' && c <= 'Z') {
+                                hashKey += c - 'A' + 26;
+                            }
+                        }
+                        
+                        if (!wordHashes.containsKey(word)) {
+                            wordHashes.put(word, hashKey);
+                            
+                            writer.write(wordHashes.size() + "\t" + word + "\t" + hashKey + "\n");
+                        }
+                    }
+                }
+                
+                line = reader.readLine();
+            }
+            
+            reader.close();
+            writer.close();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+}
