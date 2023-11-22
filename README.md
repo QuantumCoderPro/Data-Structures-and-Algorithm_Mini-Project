@@ -1,2 +1,7 @@
 # Data-Structures-and-Algorithm_Mini-Project
 **Non-Collision Hash table**, **Quadratic Probing**
+
+
+According to this mini project, it’s focuses on designing and implementing a non-collision hash table using the quadratic probing technique. The project expects to involve reading a specific text file according to the first number of the student registration number and to obtain words in the text file, computing hash keys for the words using a given table of assigned numbers and storing the words and their hash keys in an output file called (wordsHKn.txt). Next, a suitable table size for the hash table is chosen, and values of constants c1, c2, and c3 in the quadratic hash function are selected. The new hash keys and quadratic hash functions are computed for each word using the chosen constants, and the results are stored in another output file called (wordsQHKn.txt).
+
+The implementation also involves constructing a non-collision hash table using Quadratic probing technique, where collisions are handled by using the computed quadratic hash functions to find the next available slot in the hash table. Finally, the words are stored in the hash table. The project requires a thorough understanding of hash functions, Quadratic probing technique, and file handling in programming languages. The project report will provide a detailed description of the implementation approach, design decisions, and the results obtained, along with any challenges faced during the project
